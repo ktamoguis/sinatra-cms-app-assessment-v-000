@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180630064200) do
+ActiveRecord::Schema.define(version: 20180630131829) do
 
   create_table "agents", force: :cascade do |t|
     t.string  "name"
-    t.integer "manager_id"
+    t.string  "password_digest"
+    t.integer "region_id"
   end
 
   create_table "leads", force: :cascade do |t|
@@ -24,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180630064200) do
     t.integer "agent_id"
   end
 
-  create_table "managers", force: :cascade do |t|
+  create_table "regions", force: :cascade do |t|
     t.string "name"
   end
 

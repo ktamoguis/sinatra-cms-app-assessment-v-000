@@ -4,8 +4,16 @@ class AgentsController < ApplicationController
     if logged_in?
       redirect to("/leads")
     else
-      erb :'agents/new'
+      erb :'agents/create_agent'
     end
+  end
+
+  get '/login' do
+    if logged_in?
+      redirect to("/leads")
+    end
+
+    erb :'agents/login'
   end
 
 end

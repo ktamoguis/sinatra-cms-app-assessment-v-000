@@ -1,6 +1,7 @@
 class Agent < ActiveRecord::Base
   has_many :leads
   belongs_to :manager
+  has_secure_password
 
   def slug
     name.downcase.gsub(" ","-")

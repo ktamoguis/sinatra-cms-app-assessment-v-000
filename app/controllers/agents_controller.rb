@@ -1,5 +1,5 @@
 class AgentsController < ApplicationController
-      
+
   get '/signup' do
     if logged_in?
       redirect to("/leads")
@@ -8,12 +8,5 @@ class AgentsController < ApplicationController
     end
   end
 
-  get '/login' do
-    if logged_in?
-      redirect to("/leads")
-    end
-
-    erb :'agents/login'
-  end
 
 end

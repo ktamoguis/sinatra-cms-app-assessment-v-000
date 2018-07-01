@@ -35,6 +35,26 @@ class LeadsController < ApplicationController
     end
   end
 
+  get '/leads/:id/update' do
+    if !logged_in?
+      redirect to ("/")
+    else
+      @lead = Lead.find_by(id: params[:id])
+
+      erb :'leads/edit_lead'
+
+
+  end
+
+  patch '/leads/:id' do
+    @leads = Lead.find_by(id: params[:id])
+    if @leads.empty?
+      redirect to("/leads")
+    else
+
+
+  end
+
 
 
 

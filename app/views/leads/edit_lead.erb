@@ -1,0 +1,12 @@
+<h1>Edit a Lead</h1>
+
+<form action="/leads/<%= @lead.id %>" method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <h4>Lead Name</h4>
+  <input type="text" name="id" value="<%= @lead.name %>"><br>
+  <h4>Status</h4>
+  <input type="radio" name="status">Go</input><br>
+  <input type="radio" name="status">No Go</input><br>
+  <input type="radio" name="status">Converted</input><br><br>
+  <input type="submit" name="Update" id="Update">
+</form>

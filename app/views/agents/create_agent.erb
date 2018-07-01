@@ -1,9 +1,18 @@
 <h1>Create Agent</h1>
-<form action="/agents/new" method="post">
+<form action="/agents" method="post">
   <label>Agent name:</label>
   <input type="text" name="name"><br><br>
   <label>Password:</label>
   <input type="password" name="password"><br>
   <br>
+
+  <p>Create Region</p>
+  <input type="text" name="region_name"><br>
+
+  <p>Or Select Region<p>
+  <% Region.all.each do |region| %>
+    <input type="radio" name="region_name" value="<%= region.name %>" <%= 'checked' if @user.regions.include?(region) %> >
+  <% end %>
+
   <input type="submit" value="Sign Up">
 </form>

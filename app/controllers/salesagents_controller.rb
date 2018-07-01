@@ -9,15 +9,18 @@ class AgentsController < ApplicationController
   end
 
   post '/agents' do
-    if params[:username] == "" || params[:password] == ""
+    binding.pry
+    if params[:name] == "" || params[:password] == "" || params[:region_name] == ""
       redirect to("/signup")
     else
       @user = Agent.create(params)
+      @region = Region.create(name: params[:region_name])
+      @user.regions << @region
       @user.save
       session[:user_id] = @user.id
     end
 
-    redirect to("/leads")
+    redirect to("/leads/new")
   end
 
   get '/login' do

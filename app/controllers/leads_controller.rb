@@ -9,7 +9,7 @@ class LeadsController < ApplicationController
     binding.pry
     @user = Agent.find_by(name: session[:user_id])
 
-    erb :'leads/new'
+    erb :'leads/create_lead'
   end
 
 

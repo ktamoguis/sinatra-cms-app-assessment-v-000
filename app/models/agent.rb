@@ -1,6 +1,6 @@
 class Agent < ActiveRecord::Base
   has_many :leads
-  belongs_to :manager
+  belongs_to :region
   has_secure_password
 
   def slug

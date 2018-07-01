@@ -7,12 +7,12 @@
   <br>
 
   <p>Create Region</p>
-  <input type="text" name="region_name"><br>
+  <input type="text" name="region_name_1"><br>
 
   <p>Or Select Region<p>
   <% Region.all.each do |region| %>
-    <input type="radio" name="region_name" value="<%= region.name %>" <%= 'checked' if @user.regions.include?(region) %> >
+    <input type="radio" name="region_name_2" value="<%= region.name %>"><%= region.name %><br>
   <% end %>
-
+  <br>
   <input type="submit" value="Sign Up">
 </form>

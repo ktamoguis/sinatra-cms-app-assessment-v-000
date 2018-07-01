@@ -10,15 +10,22 @@ class AgentsController < ApplicationController
 
   post '/agents' do
     binding.pry
-    if params[:name] == "" || params[:password] == "" || params[:region_name] == ""
-      redirect to("/signup")
+    if params[:name] == "" || params[:password] == "" || params[:region_name_1] == "" || params[:region_name_2] == ""
+      redirect to("/agents/new")
     else
-      @user = Agent.create(params)
-      @region = Region.create(name: params[:region_name])
-      @user.regions << @region
-      @user.save
-      session[:user_id] = @user.id
+      if !params[:region_name_1] || !params[:region_name_2]
+        region_name = params[:region_name_1] ||= params[:region_name_2]
+        @user = Agent.create(name: params[:name], password: params[:password])
+        @region = Region.create(name: region_name)
+        @region.agents << @user
+        @user.save
+        session[:user_id] = @user.id
+      else
+        redirect to("/agents/new")
+      end
     end
+
+    binding.pry
 
     redirect to("/leads/new")
   end
@@ -46,7 +53,9 @@ class AgentsController < ApplicationController
 
   get '/logout' do
     if logged_in?
+      binding.pry
       session.clear
+      Region.all.clear
     end
     redirect to ("/")
   end

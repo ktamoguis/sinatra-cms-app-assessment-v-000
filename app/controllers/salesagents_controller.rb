@@ -8,27 +8,32 @@ class AgentsController < ApplicationController
     end
   end
 
+
   post '/agents' do
     binding.pry
-    if params[:name] == "" || params[:password] == "" || params[:region_name_1] == "" || params[:region_name_2] == ""
-      redirect to("/agents/new")
+
+    if params[:name] == "" || params[:password] == ""
+      if (params[:region_name_1] == "" && params[:region_name_2] == "") || (!params[:region_name_1] == "" && !params[:region_name_2] == "")
+        redirect to ("/agents/new")
+      end
     else
-      if !params[:region_name_1] || !params[:region_name_2]
-        region_name = params[:region_name_1] ||= params[:region_name_2]
-        @user = Agent.create(name: params[:name], password: params[:password])
-        @region = Region.create(name: region_name)
-        @region.agents << @user
-        @user.save
-        session[:user_id] = @user.id
+      binding.pry
+      if params[:region_name_1] == ""
+        region_name = params[:region_name_1]
       else
-        redirect to("/agents/new")
+        region_name = params[:region_name_2]
+      end
+      @user = Agent.create(name: params[:name], password: params[:password])
+      @region = Region.create(name: region_name)
+      @region.agents << @user
+      @user.save
+      session[:user_id] = @user.id
       end
     end
-
     binding.pry
-
     redirect to("/leads/new")
   end
+
 
   get '/login' do
     #binding.pry

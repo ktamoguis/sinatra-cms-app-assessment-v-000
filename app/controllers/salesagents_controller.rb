@@ -36,8 +36,9 @@ class AgentsController < ApplicationController
 
 
   get '/login' do
-    #binding.pry
+    binding.pry
     if logged_in?
+      @user = Agent.find_by(id: session[:user_id])
       redirect to("/leads")
     end
 

@@ -1,6 +1,8 @@
 <h1>Welcome, <%= @user.name %> </h1>
+<h2>Region: <%= @user.region.name %></h2>
 
 <p><a href="/leads/new">Create New Lead</a> or <a href="/logout">Log Out</a> to continue.
+
 
 <h2>Your Leads</h2>
 <table>
@@ -8,7 +10,7 @@
     <th>Lead Name</th>
     <th>Status</th>
   </tr>
-  <% Lead.all.each do |lead| %>
+  <% @user.leads.each do |lead| %>
   <tr>
       <td><%= lead.name %></td>
       <td><%= lead.status %></td>

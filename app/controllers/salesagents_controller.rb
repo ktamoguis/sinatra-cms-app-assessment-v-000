@@ -19,13 +19,14 @@ class AgentsController < ApplicationController
     else
       binding.pry
       if params[:region_name_1] == ""
-        region_name = params[:region_name_1]
-      else
         region_name = params[:region_name_2]
+      else
+        region_name = params[:region_name_1]
       end
       @user = Agent.create(name: params[:name], password: params[:password])
-      @region = Region.create(name: region_name)
+      @region = Region.find_or_create_by(name: region_name)
       @region.agents << @user
+      @region.save
       @user.save
       session[:user_id] = @user.id
     end

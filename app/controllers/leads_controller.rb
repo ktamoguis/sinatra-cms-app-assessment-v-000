@@ -1,15 +1,15 @@
 class LeadsController < ApplicationController
 
-  get '/leads' do
-
-    erb :'leads/leads'
-  end
 
   get '/leads/new' do
     binding.pry
-    @user = Agent.find_by(id: session[:user_id])
+    if !logged_in?
+      redirect to ("/")
+    else
+      @user = Agent.find_by(id: session[:user_id])
 
-    erb :'leads/create_leads'
+      erb :'leads/create_leads'
+    end
   end
 
   post '/leads' do
@@ -23,7 +23,16 @@ class LeadsController < ApplicationController
     binding.pry
 
     erb :'leads/leads'
+  end
 
+  get '/leads' do
+    if !logged_in?
+      redirect to ("/")
+    else
+      @user = Agent.find_by(id: session[:user_id])
+
+      erb :'leads/leads'
+    end
   end
 
 

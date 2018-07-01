@@ -1,8 +1,15 @@
 <h1>Welcome, <%= @user.name %> </h1>
 
 <h2>Leads</h2>
-<% Lead.all.each do |lead| %>
-  <ul>
-    <li><%= lead.name %></li>
-  </ul>
-<% end %>
+<table>
+  <tr>
+    <th>Lead Name</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <% Lead.all.each do |lead| %>
+        <td><%= lead.name %></td>
+        <td><%= lead.status %></td>
+    <% end %>
+  </tr>
+</table>

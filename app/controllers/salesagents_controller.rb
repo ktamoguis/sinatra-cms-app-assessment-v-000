@@ -1,6 +1,6 @@
 class AgentsController < ApplicationController
 
-  get '/signup' do
+  get '/agents/new' do
     if logged_in?
       redirect to("/leads")
     else
@@ -8,11 +8,11 @@ class AgentsController < ApplicationController
     end
   end
 
-  post '/agents/new' do
+  post '/agents' do
     if params[:username] == "" || params[:password] == ""
       redirect to("/signup")
     else
-      @user = User.create(params)
+      @user = Agent.create(params)
       @user.save
       session[:user_id] = @user.id
     end

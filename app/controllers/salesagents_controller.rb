@@ -13,9 +13,9 @@ class AgentsController < ApplicationController
     binding.pry
 
     if params[:name] == "" || params[:password] == ""
-      if (params[:region_name_1] == "" && params[:region_name_2] == "") || (!params[:region_name_1] == "" && !params[:region_name_2] == "")
-        redirect to ("/agents/new")
-      end
+      redirect to ("/agents/new")
+    elsif (params[:region_name_1] == "" && params[:region_name_2] == "") || (!params[:region_name_1] == "" && !params[:region_name_2] == "")
+      redirect to ("/agents/new")
     else
       binding.pry
       if params[:region_name_1] == ""
@@ -28,7 +28,6 @@ class AgentsController < ApplicationController
       @region.agents << @user
       @user.save
       session[:user_id] = @user.id
-      end
     end
     binding.pry
     redirect to("/leads/new")

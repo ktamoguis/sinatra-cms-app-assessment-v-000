@@ -8,10 +8,10 @@
     <th>Lead Name</th>
     <th>Status</th>
   </tr>
+  <% Lead.all.each do |lead| %>
   <tr>
-    <% Lead.all.each do |lead| %>
-        <td><%= lead.name %></td>
-        <td><%= lead.status %></td>
-    <% end %>
+      <td><%= lead.name %></td>
+      <td><%= lead.status %></td>
   </tr>
+  <% end %>
 </table>

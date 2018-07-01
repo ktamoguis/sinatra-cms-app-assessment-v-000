@@ -4,12 +4,7 @@
 <p><a href="/leads/new">Create New Lead</a> or <a href="/logout">Log Out</a> to continue.
 <br><br>
 
-<form action="/leads/:id" method="post">
-  <input type="hidden" name="_method" value="PATCH">
-  <label>Input ID no of lead to update:</label>
-  <input type="text" name="id">
-  <input type="submit" name="Update" id="Update">
-</form>
+
 <p>OR</p>
 <form action="/leads/:id/delete" method="post">
   <label>Input ID no of lead to delete:</label>

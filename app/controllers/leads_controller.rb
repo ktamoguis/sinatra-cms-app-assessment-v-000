@@ -42,6 +42,7 @@ class LeadsController < ApplicationController
       @lead = Lead.find_by(id: params[:id])
 
       erb :'leads/edit_lead'
+    end
 
 
   end
@@ -51,7 +52,7 @@ class LeadsController < ApplicationController
     if @leads.empty?
       redirect to("/leads")
     else
-
+    end
 
   end
 

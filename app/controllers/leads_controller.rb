@@ -1,5 +1,5 @@
 class LeadsController < ApplicationController
-
+  use Rack::Flash
 
   get '/leads/new' do
     if !logged_in?
@@ -56,6 +56,7 @@ class LeadsController < ApplicationController
       @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
         @user = current_user
+        flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
         erb :"/leads/leads"
       else
         erb :'leads/show_lead'
@@ -80,21 +81,24 @@ class LeadsController < ApplicationController
     @lead = Lead.find_by(id: params[:lead_id])
     binding.pry
     if @lead.nil?
-      redirect to("/leads")
+      redirect to("/leads/#{params[:lead_id]}/update")
     else
-      @lead.update(name: params[:name])
-      @lead.update(status: params[:status])
-      @lead.save
-      @user = Agent.find_by(id: session[:user_id])
-      erb :'leads/leads'
+      if params[:name] == ""
+        flash[:message] = "Please try again."
+        redirect to("/leads/#{params[:lead_id]}/update")
+      else
+        @lead.update(name: params[:name])
+        @lead.update(status: params[:status])
+        @lead.save
+        @user = Agent.find_by(id: session[:user_id])
+        erb :'leads/leads'
+      end
     end
   end
 
   delete '/leads/:id/delete' do
     @lead = Lead.find_by(id: params[:id])
-    binding.pry
     if session[:user_id] == current_user.id
-      #binding.pry
       @lead.delete
     end
     redirect to("/leads")

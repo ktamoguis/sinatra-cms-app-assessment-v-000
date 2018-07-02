@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <h1>Create Agent</h1>
 <form action="/agents" method="post">
   <label>Agent name:</label>

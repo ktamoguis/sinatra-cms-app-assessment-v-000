@@ -2,18 +2,16 @@
 
 <label>Name:</label>
 <%= @lead.name %>
-
-<p></p>
-
+<br><br>
 <label>Status:</label>
 <%= @lead.status %>
 
-<br><br>
+<br><br><br>
 
 <form action="/leads/<%= @lead.id %>/update" method="get">
   <input type="submit" value="Edit Lead">
 </form>
-<br>
+
 <form action="/leads/<%= @lead.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Lead">

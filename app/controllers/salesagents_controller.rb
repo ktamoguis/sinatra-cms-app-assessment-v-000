@@ -1,8 +1,12 @@
 class AgentsController < ApplicationController
+  use Rack::Flash
 
   get '/agents/new' do
     if logged_in?
-      redirect to("/leads")
+      flash[:message] = "Agent Logged In. Please log out first before signing up."
+
+      erb :'index'
+      #redirect to("/leads")
     else
       erb :'agents/create_agent'
     end
@@ -12,8 +16,10 @@ class AgentsController < ApplicationController
   post '/agents' do
     binding.pry
     if params[:name] == "" || params[:password] == ""
+      flash[:message] = "Please try again."
       redirect to ("/agents/new")
-    elsif (params[:region_name_1] == "" && params[:region_name_2].nil?) || (!params[:region_name_1] == "" && !params[:region_name_2].nil?)
+    elsif (params[:region_name_1] == "" && params[:region_name_2].nil?) || (params[:region_name_1] != "" && !params[:region_name_2].nil?)
+      flash[:message] = "Please try again."
       redirect to ("/agents/new")
     else
       binding.pry
@@ -37,6 +43,7 @@ class AgentsController < ApplicationController
   get '/login' do
     if logged_in?
       @user = Agent.find_by(id: session[:user_id])
+      flash[:message] = "Agent Logged In. Please log out first before signing up."
       redirect to("/leads")
     end
 
@@ -50,6 +57,7 @@ class AgentsController < ApplicationController
       session[:user_id] = @user.id
       redirect to("/leads")
     else
+      flash[:message] = "Please try again."
       redirect to("/login")
     end
   end

@@ -35,7 +35,6 @@ class AgentsController < ApplicationController
 
 
   get '/login' do
-    binding.pry
     if logged_in?
       @user = Agent.find_by(id: session[:user_id])
       redirect to("/leads")
@@ -58,9 +57,7 @@ class AgentsController < ApplicationController
 
   get '/logout' do
     if logged_in?
-      binding.pry
       session.clear
-      Region.all.clear
     end
     redirect to ("/")
   end

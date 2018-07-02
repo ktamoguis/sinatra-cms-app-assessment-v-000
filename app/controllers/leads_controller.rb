@@ -2,7 +2,6 @@ class LeadsController < ApplicationController
 
 
   get '/leads/new' do
-    binding.pry
     if !logged_in?
       redirect to ("/")
     else
@@ -13,14 +12,12 @@ class LeadsController < ApplicationController
   end
 
   post '/leads' do
-    binding.pry
     @user = Agent.find_by(id: session[:user_id])
     @lead = Lead.create(name: params[:name])
     @lead.status = "Go"
     @lead.agent = @user
     @lead.save
 
-    binding.pry
 
     erb :'leads/leads'
   end
@@ -36,7 +33,6 @@ class LeadsController < ApplicationController
   end
 
   get '/leads/show' do
-    binding.pry
     if !logged_in?
       redirect to ("/")
     else
@@ -59,7 +55,8 @@ class LeadsController < ApplicationController
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
-        redirect to("/leads/leads")
+        @user = current_user
+        erb :"/leads/leads"
       else
         erb :'leads/show_lead'
       end
@@ -85,6 +82,7 @@ class LeadsController < ApplicationController
     if @lead.nil?
       redirect to("/leads")
     else
+      @lead.update(name: params[:name])
       @lead.update(status: params[:status])
       @lead.save
       @user = Agent.find_by(id: session[:user_id])

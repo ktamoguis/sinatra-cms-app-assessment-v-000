@@ -14,7 +14,7 @@ class RegionsController < ApplicationController
     else
       @region = Region.find_by(id: params[:region_id])
       if @region == current_user.region
-
+        
         erb :'/regions/show_region'
       else
         redirect to("/regions")
@@ -23,7 +23,7 @@ class RegionsController < ApplicationController
   end
 
   get '/regions/new' do
-    
+
   end
 
 end

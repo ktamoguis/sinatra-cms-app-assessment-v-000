@@ -47,13 +47,24 @@ class LeadsController < ApplicationController
 
   end
 
-  patch '/leads/:id' do
+  patch '/leads/:lead_id' do
     @leads = Lead.find_by(id: params[:id])
     if @leads.empty?
       redirect to("/leads")
     else
     end
+  end
 
+
+  delete '/leads/delete' do #delete action
+    binding.pry
+    @lead = Lead.find_by(id: params[:lead_id])
+    binding.pry
+    if session[:user_id] == current_user.id
+      #binding.pry
+      @lead.delete
+    end
+    redirect to("/leads")
   end
 
 

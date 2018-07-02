@@ -1,16 +1,16 @@
 <h1>Welcome, <%= @user.name %> </h1>
-<%binding.pry%>
+
 <h2>Region: <%= @user.region.name %></h2>
 
 <p><a href="/leads/new">Create New Lead</a> or <a href="/logout">Log Out</a> to continue.
 <br><br>
 
-
 <p>OR</p>
-<form action="/leads/:id/delete" method="post">
+<form action="/leads/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
   <label>Input ID no of lead to delete:</label>
-  <input type="text" name="id">
-  <input type="submit" name="id" id="Update">
+  <input type="text" name="lead_id">
+  <input type="submit" name="submit">
 </form>
 <br><br>
 <h2>Your Leads</h2>

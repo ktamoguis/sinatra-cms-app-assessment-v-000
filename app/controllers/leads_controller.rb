@@ -7,7 +7,7 @@ class LeadsController < ApplicationController
       redirect to ("/")
     else
       @user = Agent.find_by(id: session[:user_id])
-
+      flash[:message] = ""
       erb :'leads/create_leads'
     end
   end
@@ -57,7 +57,7 @@ class LeadsController < ApplicationController
   end
 
   get '/leads/:lead_id' do
-    binding.pry
+    #binding.pry
     if !logged_in?
       flash[:message] = "Please sign up or log-in first."
       redirect to ("/")
@@ -116,9 +116,9 @@ class LeadsController < ApplicationController
 
 
   delete '/leads/delete' do #delete action
-    binding.pry
+    #binding.pry
     @lead = Lead.find_by(id: params[:lead_id])
-    binding.pry
+    #binding.pry
     if session[:user_id] == current_user.id
       #binding.pry
       @lead.delete

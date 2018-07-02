@@ -14,7 +14,7 @@ class AgentsController < ApplicationController
 
 
   post '/agents' do
-    binding.pry
+    #binding.pry
     if params[:name] == "" || params[:password] == ""
       flash[:message] = "Please try again."
       redirect to ("/agents/new")
@@ -26,13 +26,24 @@ class AgentsController < ApplicationController
         region_name = params[:region_name_2]
       else
         region_name = params[:region_name_1]
+        @region = Region.find_by(name: region_name)
+        if !@region.nil?
+          flash[:message] = "Region already exists"
+          redirect to ("/agents/new")
+        end
       end
-      @user = Agent.create(name: params[:name], password: params[:password])
-      @region = Region.find_or_create_by(name: region_name)
-      @region.agents << @user
-      @region.save
-      @user.save
-      session[:user_id] = @user.id
+      @user = Agent.find_by(name: params[:name])
+      if !@user.nil?
+        flash[:message] = "Agent already exists"
+        redirect to ("/agents/new")
+      else
+        @user = Agent.create(name: params[:name], password: params[:password])
+        @region = Region.find_or_create_by(name: region_name)
+        @region.agents << @user
+        @region.save
+        @user.save
+        session[:user_id] = @user.id
+      end
     end
     redirect to("/leads/new")
   end

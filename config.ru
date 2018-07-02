@@ -8,5 +8,5 @@ use Rack::MethodOverride
 
 use LeadsController
 use AgentsController
-#use RegionsController
+use RegionsController
 run ApplicationController

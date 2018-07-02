@@ -10,9 +10,10 @@ class AgentsController < ApplicationController
 
 
   post '/agents' do
+    binding.pry
     if params[:name] == "" || params[:password] == ""
       redirect to ("/agents/new")
-    elsif (params[:region_name_1] == "" && params[:region_name_2].nil?) || (!params[:region_name_1].nil? && !params[:region_name_2].nil?)
+    elsif (params[:region_name_1] == "" && params[:region_name_2].nil?) || (!params[:region_name_1] == "" && !params[:region_name_2].nil?)
       redirect to ("/agents/new")
     else
       binding.pry

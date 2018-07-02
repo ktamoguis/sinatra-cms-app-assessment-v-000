@@ -1,0 +1,14 @@
+<h1>Region Name: <%= @region.name %></h1>
+
+<table>
+  <tr>
+    <th>Lead Name</th>
+    <th>Status</th>
+  </tr>
+  <% @region.leads.each do |lead| %>
+  <tr>
+    <td><%= lead.name %></td>
+    <td><%= lead.status %></td>
+  </tr>
+  <% end %>
+</table>

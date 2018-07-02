@@ -1,0 +1,25 @@
+<h1>Regions List</h1>
+
+
+<table>
+  <tr>
+    <th>ID no</th>
+    <th>Region Name</th>
+    <th>Agent Count</th>
+    <th>Lead Count</th>
+    <th>Go</th>
+    <th>Converted</th>
+    <th>No Go</th>
+  </tr>
+  <% Region.all.each do |region| %>
+  <tr>
+      <td><%= region.id %></td>
+      <td><%= region.name %></td>
+      <td><%= region.agents.count %></td>
+      <td><%= region.leads.count %></td>
+      <td><%= region.leads.where(status: "Go").count %></td>
+      <td><%= region.leads.where(status: "Converted").count %></td>
+      <td><%= region.leads.where(status: "No Go").count %></td>
+  </tr>
+  <% end %>
+</table>

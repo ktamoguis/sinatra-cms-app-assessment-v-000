@@ -22,7 +22,6 @@ class AgentsController < ApplicationController
       flash[:message] = "Please try again."
       redirect to ("/agents/new")
     else
-      binding.pry
       if params[:region_name_1] == ""
         region_name = params[:region_name_2]
       else
@@ -35,7 +34,6 @@ class AgentsController < ApplicationController
       @user.save
       session[:user_id] = @user.id
     end
-    binding.pry
     redirect to("/leads/new")
   end
 

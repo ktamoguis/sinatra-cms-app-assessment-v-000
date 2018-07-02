@@ -3,6 +3,7 @@ class RegionsController < ApplicationController
 
   get '/regions' do
     if !logged_in?
+      flash[:message] = "Please sign up or log-in first."
       redirect to ("/")
     else
       erb :'/regions/regions'
@@ -19,13 +20,12 @@ class RegionsController < ApplicationController
 
         erb :'/regions/show_region'
       else
+        flash[:message] = "Agent does not belong to that region. Please try again."
         redirect to("/regions")
       end
     end
   end
 
-  get '/regions/new' do
-
-  end
+  
 
 end

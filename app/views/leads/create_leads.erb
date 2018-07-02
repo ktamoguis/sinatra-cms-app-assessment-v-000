@@ -1,4 +1,7 @@
-<h1>Welcome, <%= @user.name %> </h1>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+<h1>Welcome, <%= @user.name %>!</h1>
 
 <p><a href="/leads/new">Create Another Lead</a> or <a href="/logout">Log Out</a> to continue.
 

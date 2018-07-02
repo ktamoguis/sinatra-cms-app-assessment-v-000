@@ -16,13 +16,13 @@ class LeadsController < ApplicationController
     @user = Agent.find_by(id: session[:user_id])
     if params[:name] == ""
       flash[:message] = "Please try again"
-      redirect to("/leads/new")
+      erb :'leads/create_leads'
     else
       @lead = Lead.create(name: params[:name])
       @lead.status = "Go"
       @lead.agent = @user
       @lead.save
-
+      flash[:message] = ""
       erb :'leads/leads'
     end
   end

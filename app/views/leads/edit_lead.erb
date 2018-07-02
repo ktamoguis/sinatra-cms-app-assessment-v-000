@@ -9,7 +9,7 @@
   <input type="text" name="name" value="<%= @lead.name %>"><br>
   <h4>Status</h4>
   <input type="radio" name="status" value="Go"<%= 'checked' if @lead.status=="Go" %>>Go</input><br>
-  <input type="radio" name="status" value="No Go">No Go</input><br>
-  <input type="radio" name="status" value="Converted">Converted</input><br><br>
+  <input type="radio" name="status" value="No Go"<%= 'checked' if @lead.status=="No Go" %>>No Go</input><br>
+  <input type="radio" name="status" value="Converted"<%= 'checked' if @lead.status=="Converted" %>>Converted</input><br><br>
   <input type="submit" name="Update" value="Update">
 </form>

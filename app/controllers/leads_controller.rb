@@ -40,7 +40,7 @@ class LeadsController < ApplicationController
     if !logged_in?
       redirect to ("/")
     else
-      @lead = Lead.find_by(id: params[:lead_id])
+      @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
         redirect to("/leads/leads")
       else
@@ -52,12 +52,12 @@ class LeadsController < ApplicationController
 
   end
 
-  get '/leads/:id' do
+  get '/leads/:lead_id' do
     binding.pry
     if !logged_in?
       redirect to ("/")
     else
-      @lead = Lead.find_by(id: params[:id])
+      @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
         redirect to("/leads/leads")
       else
@@ -66,16 +66,17 @@ class LeadsController < ApplicationController
     end
   end
 
-  get '/leads/:id/update' do
+  get '/leads/:lead_id/update' do
     if !logged_in?
       redirect to ("/")
     else
-      @lead = Lead.find_by(id: params[:id])
-
-      erb :'leads/edit_lead'
+      @lead = current_user.leads.find_by(id: params[:lead_id])
+      if @lead.nil?
+        redirect to("/leads/leads")
+      else
+        erb :'leads/edit_lead'
+      end
     end
-
-
   end
 
   patch '/leads/:lead_id' do

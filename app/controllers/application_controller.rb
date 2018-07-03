@@ -36,5 +36,10 @@ class ApplicationController < Sinatra::Base
        params[:region_name_1] != "" && !params[:region_name_2].nil?
     end
 
+    def log_in_or_sign_up
+      flash[:message] = "Please sign up or log-in first."
+      redirect to ("/")
+    end
+
   end
 end

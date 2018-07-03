@@ -3,8 +3,7 @@ class RegionsController < ApplicationController
 
   get '/regions' do
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       erb :'/regions/regions'
     end
@@ -12,8 +11,7 @@ class RegionsController < ApplicationController
 
   get '/regions/:region_id' do
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @region = Region.find_by(id: params[:region_id])
       if @region == current_user.region
@@ -25,7 +23,5 @@ class RegionsController < ApplicationController
       end
     end
   end
-
-  
 
 end

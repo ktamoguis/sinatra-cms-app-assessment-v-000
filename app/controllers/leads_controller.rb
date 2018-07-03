@@ -4,8 +4,7 @@ class LeadsController < ApplicationController
   get '/leads/new' do
     #binding.pry
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @user = Agent.find_by(id: session[:user_id])
       flash[:message] = ""
@@ -30,8 +29,7 @@ class LeadsController < ApplicationController
 
   get '/leads' do
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @user = Agent.find_by(id: session[:user_id])
 
@@ -41,8 +39,7 @@ class LeadsController < ApplicationController
 
   get '/leads/show' do
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
@@ -60,8 +57,7 @@ class LeadsController < ApplicationController
   get '/leads/:lead_id' do
     #binding.pry
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
@@ -76,8 +72,7 @@ class LeadsController < ApplicationController
 
   get '/leads/:lead_id/update' do
     if !logged_in?
-      flash[:message] = "Please sign up or log-in first."
-      redirect to ("/")
+      log_in_or_sign_up
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       if @lead.nil?
@@ -123,8 +118,6 @@ class LeadsController < ApplicationController
     end
     redirect to("/leads")
   end
-
-
 
 
 end

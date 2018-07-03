@@ -41,7 +41,8 @@ class LeadsController < ApplicationController
       log_in_or_sign_up
     elsif current_user.leads.find_by(id: params[:lead_id]).nil?
       flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
-      redirect to("/leads/leads")
+      @user = current_user
+      erb :'leads/leads'
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       erb :'leads/show_lead'
@@ -54,7 +55,8 @@ class LeadsController < ApplicationController
       log_in_or_sign_up
     elsif current_user.leads.find_by(id: params[:lead_id]).nil?
       flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
-      erb :"/leads/leads"
+      @user = current_user
+      erb :'/leads/leads'
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
       erb :'leads/show_lead'

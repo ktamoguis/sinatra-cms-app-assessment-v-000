@@ -71,6 +71,7 @@ class LeadsController < ApplicationController
       redirect to("/leads/leads")
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
+      flash[:message] = ""
       erb :'leads/edit_lead'
     end
   end

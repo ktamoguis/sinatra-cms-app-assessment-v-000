@@ -13,14 +13,13 @@ class LeadsController < ApplicationController
   end
 
   post '/leads' do
-    @user = Agent.find_by(id: session[:user_id])
     if params[:name] == ""
       flash[:message] = "Please try again"
       erb :'leads/create_leads'
     else
       @lead = Lead.create(name: params[:name])
       @lead.status = "Go"
-      @lead.agent = @user
+      @lead.agent = Agent.find_by(id: session[:user_id])
       @lead.save
       flash[:message] = ""
       erb :'leads/leads'
@@ -44,38 +43,33 @@ class LeadsController < ApplicationController
       flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
       redirect to("/leads/leads")
     else
+      @lead = current_user.leads.find_by(id: params[:lead_id])
       erb :'leads/show_lead'
     end
   end
 
 
   get '/leads/:lead_id' do
-    #binding.pry
     if !logged_in?
       log_in_or_sign_up
+    elsif current_user.leads.find_by(id: params[:lead_id]).nil?
+      flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
+      erb :"/leads/leads"
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
-      if @lead.nil?
-        @user = current_user
-        flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
-        erb :"/leads/leads"
-      else
-        erb :'leads/show_lead'
-      end
+      erb :'leads/show_lead'
     end
   end
 
   get '/leads/:lead_id/update' do
     if !logged_in?
       log_in_or_sign_up
+    elsif current_user.leads.find_by(id: params[:lead_id]).nil?
+      flash[:message] = "Please try again."
+      redirect to("/leads/leads")
     else
       @lead = current_user.leads.find_by(id: params[:lead_id])
-      if @lead.nil?
-        flash[:message] = "Please try again."
-        redirect to("/leads/leads")
-      else
-        erb :'leads/edit_lead'
-      end
+      erb :'leads/edit_lead'
     end
   end
 
@@ -98,18 +92,16 @@ class LeadsController < ApplicationController
   end
 
   delete '/leads/:id/delete' do
-    @lead = Lead.find_by(id: params[:id])
     if session[:user_id] == current_user.id
-      @lead.delete
+      Lead.find_by(id: params[:id]).delete
     end
     redirect to("/leads")
   end
 
 
   delete '/leads/delete' do #delete action
-    @lead = Lead.find_by(id: params[:lead_id])
     if session[:user_id] == current_user.id
-      @lead.delete
+      Lead.find_by(id: params[:lead_id]).delete
     end
     redirect to("/leads")
   end

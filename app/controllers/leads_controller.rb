@@ -81,7 +81,7 @@ class LeadsController < ApplicationController
         @lead.update(name: params[:name])
         @lead.update(status: params[:status])
         @lead.save
-        @user = Agent.find_by(id: session[:user_id])
+        @user = current_user
         erb :'leads/leads'
       end
     end

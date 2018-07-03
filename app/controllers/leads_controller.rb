@@ -13,13 +13,15 @@ class LeadsController < ApplicationController
   end
 
   post '/leads' do
+    @user = current_user
     if params[:name] == ""
       flash[:message] = "Please try again"
+      @user = current_user
       erb :'leads/create_leads'
     else
       @lead = Lead.create(name: params[:name])
       @lead.status = "Go"
-      @lead.agent = Agent.find_by(id: session[:user_id])
+      @lead.agent = current_user
       @lead.save
       flash[:message] = ""
       erb :'leads/leads'
@@ -37,16 +39,7 @@ class LeadsController < ApplicationController
   end
 
   get '/leads/show' do
-    if !logged_in?
-      log_in_or_sign_up
-    elsif current_user.leads.find_by(id: params[:lead_id]).nil?
-      flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
-      @user = current_user
-      erb :'leads/leads'
-    else
-      @lead = current_user.leads.find_by(id: params[:lead_id])
-      erb :'leads/show_lead'
-    end
+    redirect to("/leads/#{params[:lead_id]}")
   end
 
 
@@ -54,7 +47,7 @@ class LeadsController < ApplicationController
     if !logged_in?
       log_in_or_sign_up
     elsif current_user.leads.find_by(id: params[:lead_id]).nil?
-      flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
+      flash[:message] = "Lead ID does not exist/belong to agent. Please try again."
       @user = current_user
       erb :'/leads/leads'
     else

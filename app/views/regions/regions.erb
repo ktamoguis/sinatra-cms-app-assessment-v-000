@@ -16,7 +16,7 @@
   <% Region.all.each do |region| %>
   <tr>
       <td><%= region.id %></td>
-      <td><%= region.name %></td>
+      <td><a href="/regions/<%= region.id %>"><%= region.name %></a></td>
       <td><%= region.agents.count %></td>
       <td><%= region.leads.count %></td>
       <td><%= region.leads.where(status: "Go").count %></td>

@@ -32,7 +32,7 @@ class LeadsController < ApplicationController
     if !logged_in?
       log_in_or_sign_up
     else
-      @user = Agent.find_by(id: session[:user_id])
+      @user = current_user
 
       erb :'leads/leads'
     end

@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      Agent.find(session[:user_id])
+      @current_user ||= Agent.find(session[:user_id])
     end
 
     def blank_name_or_password?

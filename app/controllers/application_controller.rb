@@ -23,5 +23,18 @@ class ApplicationController < Sinatra::Base
     def current_user
       Agent.find(session[:user_id])
     end
+
+    def blank_name_or_password?
+      params[:name] == "" || params[:password] == ""
+    end
+
+    def no_region_name?
+      params[:region_name_1] == "" && params[:region_name_2].nil?
+    end
+
+    def double_region_name?
+       params[:region_name_1] != "" && !params[:region_name_2].nil?
+    end
+
   end
 end

@@ -6,7 +6,6 @@ class AgentsController < ApplicationController
       flash[:message] = "Agent Logged In. Please log out first before signing up."
 
       erb :'index'
-      #redirect to("/leads")
     else
       erb :'agents/create_agent'
     end
@@ -15,10 +14,10 @@ class AgentsController < ApplicationController
 
   post '/agents' do
     #binding.pry
-    if params[:name] == "" || params[:password] == ""
+    if blank_name_or_password?
       flash[:message] = "Please try again."
       redirect to ("/agents/new")
-    elsif (params[:region_name_1] == "" && params[:region_name_2].nil?) || (params[:region_name_1] != "" && !params[:region_name_2].nil?)
+    elsif no_region_name? || double_region_name?
       flash[:message] = "Please try again."
       redirect to ("/agents/new")
     else

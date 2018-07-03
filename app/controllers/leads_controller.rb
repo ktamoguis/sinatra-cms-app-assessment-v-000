@@ -2,6 +2,7 @@ class LeadsController < ApplicationController
   use Rack::Flash
 
   get '/leads/new' do
+    #binding.pry
     if !logged_in?
       flash[:message] = "Please sign up or log-in first."
       redirect to ("/")

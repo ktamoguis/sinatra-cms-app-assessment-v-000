@@ -3,9 +3,7 @@ class AgentsController < ApplicationController
 
   get '/agents/new' do
     if logged_in?
-      flash[:message] = "Agent Logged In. Please log out first before signing up."
-
-      erb :'index'
+      already_logged_in
     else
       erb :'agents/create_agent'
     end
@@ -37,9 +35,7 @@ class AgentsController < ApplicationController
 
   get '/login' do
     if logged_in?
-      @user = Agent.find_by(id: session[:user_id])
-      flash[:message] = "Agent Logged In. Please log out first before signing up."
-      redirect to("/leads")
+      already_logged_in
     end
 
     erb :'agents/login'

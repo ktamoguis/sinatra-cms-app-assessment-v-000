@@ -41,5 +41,11 @@ class ApplicationController < Sinatra::Base
       redirect to ("/")
     end
 
+    def already_logged_in
+      flash[:message] = "Agent already logged in."
+      redirect to('/')
+    end
+
+
   end
 end

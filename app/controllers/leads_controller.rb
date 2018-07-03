@@ -40,19 +40,14 @@ class LeadsController < ApplicationController
   get '/leads/show' do
     if !logged_in?
       log_in_or_sign_up
+    elsif current_user.leads.find_by(id: params[:lead_id]).nil?
+      flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
+      redirect to("/leads/leads")
     else
-      @lead = current_user.leads.find_by(id: params[:lead_id])
-      if @lead.nil?
-        flash[:message] = "Lead ID does not exit/belong to agent. Please try again."
-        redirect to("/leads/leads")
-      else
-
-        erb :'leads/show_lead'
-      end
+      erb :'leads/show_lead'
     end
-
-
   end
+
 
   get '/leads/:lead_id' do
     #binding.pry

@@ -79,4 +79,8 @@ Project reviews are focused on preparing you for technical interviews. Treat pro
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-cms-app-assessment'>Sinatra Assessment</a> on Learn.co and start learning to code for free.</p>
 
+<<<<<<< HEAD
 <p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-cms-app-assessment'>Sinatra Portfolio Project</a> on Learn.co and start learning to code for free.</p>
+=======
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-cms-app-assessment'>Sinatra Portfolio Project</a> on Learn.co and start learning to code for free.</p>
+>>>>>>> 1a3a2af2c390bd64586c8fd52f7f4f2cb1feb486

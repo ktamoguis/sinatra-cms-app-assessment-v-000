@@ -117,11 +117,8 @@ class LeadsController < ApplicationController
 
 
   delete '/leads/delete' do #delete action
-    #binding.pry
     @lead = Lead.find_by(id: params[:lead_id])
-    #binding.pry
     if session[:user_id] == current_user.id
-      #binding.pry
       @lead.delete
     end
     redirect to("/leads")
